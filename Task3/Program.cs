@@ -1,4 +1,5 @@
 ﻿namespace Task3;
+using System.Globalization;
 
 public static class Program
 {
@@ -7,65 +8,73 @@ public static class Program
         var clubs = new Dictionary<string, List<FootballClub>>()
         {
             { "London", [
-                    new FootballClub() { Name = "Arsenal", YearOfFoundation = 1886, HeadCoach = "Mikel Arteta" },
-                    new FootballClub() { Name = "Chelsea", YearOfFoundation = 1905, HeadCoach = "Graham Potter" },
-                    new FootballClub() { Name = "Tottenham Hotspur", YearOfFoundation = 1882, HeadCoach = "Antonio Conte" },
-                    new FootballClub() { Name = "West Ham United", YearOfFoundation = 1895, HeadCoach = "David Moyes" },
-                    new FootballClub() { Name = "Fulham", YearOfFoundation = 1879, HeadCoach = "Marco Silva" }
+                    new FootballClub("Arsenal", 1886, "Mikel Arteta"),
+                    new FootballClub("Chelsea", 1905, "Graham Potter"),
+                    new FootballClub("Tottenham Hotspur", 1882, "Antonio Conte"),
+                    new FootballClub("West Ham United", 1895, "David Moyes"),
+                    new FootballClub("Fulham", 1879, "Marco Silva")
                 ]
             },
-            
+    
             {"Manchester", [
-                    new FootballClub()
-                        { Name = "Manchester United", YearOfFoundation = 1878, HeadCoach = "Erik ten Hag" },
-                    new FootballClub()
-                        { Name = "Manchester City", YearOfFoundation = 1880, HeadCoach = "Pep Guardiola" }
+                    new FootballClub("Manchester United", 1878, "Erik ten Hag"),
+                    new FootballClub("Manchester City", 1880, "Pep Guardiola")
                 ]
             },
-            
+    
             {"Liverpool", [
-                    new FootballClub() { Name = "Liverpool", YearOfFoundation = 1892, HeadCoach = "Jurgen Klopp" },
-                    new FootballClub() { Name = "Everton", YearOfFoundation = 1878, HeadCoach = "Sean Dyche" }
+                    new FootballClub("Liverpool", 1892, "Jurgen Klopp"),
+                    new FootballClub("Everton", 1878, "Sean Dyche")
                 ]
             },
-            
+    
             {"Milan", [
-                    new FootballClub() { Name = "AC Milan", YearOfFoundation = 1899, HeadCoach = "Stefano Pioli" },
-                    new FootballClub() { Name = "Inter Milan", YearOfFoundation = 1908, HeadCoach = "Simone Inzaghi" }
+                    new FootballClub("AC Milan", 1899, "Stefano Pioli"),
+                    new FootballClub("Inter Milan", 1908, "Simone Inzaghi")
                 ]
             },
-            
+    
             {"Madrid",
-                [new FootballClub() { Name = "Real Madrid", YearOfFoundation = 1902, HeadCoach = "Carlo Ancelotti" }]
+                [new FootballClub("Real Madrid", 1902, "Carlo Ancelotti")]
             },
 
             { "Barcelona",
-                [new FootballClub() { Name = "Barcelona", YearOfFoundation = 1899, HeadCoach = "Xavi Hernandez" }]
+                [new FootballClub("Barcelona", 1899, "Xavi Hernandez")]
             },
 
             { "Munich",
-                [new FootballClub() { Name = "Bayern Munich", YearOfFoundation = 1900, HeadCoach = "Thomas Tuchel" }]
+                [new FootballClub("Bayern Munich", 1900, "Thomas Tuchel")]
+            },
+    
+            {"Turin",
+                [new FootballClub("Juventus", 1897, "Massimiliano Allegri")]
             },
             
-            {"Turin",
-                [new FootballClub() { Name = "Juventus", YearOfFoundation = 1897, HeadCoach = "Massimiliano Allegri" }]
-            }
+            {"Rivne",
+            [new FootballClub("Veres", 1957, "Oleh Shandruk")]
+        }
         };
 
-        Console.Write("Input city name: ");
         
-        var city = Console.ReadLine();
-        
-        if (city != null && clubs.TryGetValue(city, value: out var club1))
+        while (true)
         {
-            foreach (var club in club1)
+            Console.Write("Input city name: ");
+
+            var city = Console.ReadLine();
+
+            if (city != null && clubs.TryGetValue(CultureInfo.CurrentCulture.TextInfo.ToTitleCase(city), value: out var club1))
             {
-                Console.WriteLine(club.ToString());
+                foreach (var club in club1)
+                {
+                    Console.WriteLine(club.ToString());
+                }
+                Console.WriteLine();
             }
-        }
-        else
-        {
-            Console.WriteLine($"No clubs found in {city}.");
+            else
+            {
+                Console.WriteLine($"No clubs found in {city}.");
+                Console.WriteLine();
+            }
         }
     }
 }
